@@ -3,7 +3,7 @@
 #include "handylib.h"
 
 #define NDEBUG
-#define VERSION 2
+#define VERSION 1
 
 //maximum number of chips
 #define MAXCHIPS 256
@@ -14,7 +14,7 @@
 //maximum number of chips
 #define MAXBOARDS (MAXCHIPS/16)
 //maximum number of wrong nonces a chip can produce in 5 min before downclocking
-#define MAXERROR 5
+#define MAXERROR 10
 //minimum number of correct results in the evaluation period (5 min) to prevent reprogramming
 #define MINGOOD 50
 //delete stored getworks older than this
@@ -27,9 +27,9 @@
 //   54/   98/  107/  88
 //   55/  101/  115/  93
 //   56/   99/  125/  99
-#define MAXSPEED 57
-#define DEFSPEED 54
-#define MINSPEED 52
+#define MAXSPEED 55
+#define DEFSPEED 55
+#define MINSPEED 51
 
 typedef	uint32_t hasht[8];
 typedef uint32_t datat[19];
@@ -84,7 +84,7 @@ class PutworkThread : public Thread
 void SHA256_Full(unsigned *state, unsigned *data, const unsigned *st);
 void ms3_compute(unsigned *p);
 unsigned dec_nonce(unsigned in);
-int test_nonce(unsigned tnon,hasht mids,datat data,hasht hash,uint32_t* pwdata,uint32_t* pwhash,int chip,int busy,int x,int y);
+int test_nonce(unsigned tnon,hasht mids,datat data,hasht hash);
 int fix_nonce(uint32_t newn,uint32_t old,hasht mids1,datat data1,hasht mids2,datat data2,int change,int chip,int job,int busy,uint32_t* pwdata,uint32_t* pwhash);
 void cpu_miner();
 void spi_miner(int chips,char* chipconf,char* chipfast);
